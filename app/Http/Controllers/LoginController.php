@@ -14,10 +14,6 @@ class LoginController extends Controller
         $user = $login->username;
         $pass = $login->password; 
 
-        // $data = DB::table('user')
-        //             ->join('user_level', 'user_level.id_user_level', '=', 'user.id_user_level')
-        //             ->where('username','=', $user)
-        //             ->get();
         $data = \App\Users::with('userlevel')->where('username','=', $user)->get();
         
         if(count($data) > 0){ //ada atau tidak
