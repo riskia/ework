@@ -18,8 +18,7 @@ class CheckUserMenu
     public function handle($request, Closure $next)
     {
         $userlevel = session('user_level');
-        if($userlevel != '1')
-        {
+        if($userlevel != '1') {
             $menu = DB::table('menu')
                     ->join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                     ->where([['link_menu', \Request::path()]

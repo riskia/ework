@@ -10,8 +10,7 @@ class ListMenu extends Model
     protected $primarykey = 'list_menu_id';
     public $timestamps = false;
 
-    public function menu()
-    {
+    public function menu() {
         return $this->hasMany('App\Menu', 'list_menu_id', 'list_menu_id');
     }
 

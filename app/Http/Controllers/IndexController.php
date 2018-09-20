@@ -11,15 +11,12 @@ use App\Menu;
 
 class IndexController extends Controller
 {
-    public function dashboard()
-    {   
+    public function dashboard() {   
         $userlevel = session('user_level');
-        if($userlevel == '1')
-        {
+        if($userlevel == '1') {
             $menu = \App\ListMenu::all();
         }
-        else
-        {
+        else {
             $menu = \App\Menu::join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                         ->where('user_level_id', $userlevel)
                         ->get();
@@ -28,24 +25,21 @@ class IndexController extends Controller
         return view('dashboard/home', ['title' => 'Dashboard', 'menu' => $menu] );
     }
 
-    public function user()
-    {
+    public function user() {
         $menu = session('menunya');
         $data = \App\Users::with('userlevel')->get();
 
         return view('dashboard/user', ['title' => 'User board', 'menu' => $menu, 'data' => $data]);
     }
 
-    public function profile()
-    {
+    public function profile() {
         $menu = session('menunya');
         
         $data = \App\Users::with('userlevel')->get();
         return view('dashboard/profile', ['title' => 'Profile', 'menu' => $menu, 'data' => $data]);
     }
 
-    public function menu()
-    {
+    public function menu() {
         $menu = session('menunya');
         $allmenu = \App\ListMenu::all();
         $data = \App\ListMenu::orderBy('list_menu.list_menu_id', 'asc')
@@ -60,8 +54,7 @@ class IndexController extends Controller
         return view('dashboard/menu', ['title' => 'Menu', 'menu' => $menu, 'data' => $data, 'allmenu' => $allmenu]);
     }
 
-    public function addmenu(Request $menudata)
-    {
+    public function addmenu(Request $menudata) {
         $data = DB::table('list_menu')
                     ->insert([
                         ['nama_menu' => $menudata->namamenu
@@ -72,8 +65,7 @@ class IndexController extends Controller
 
     }
 
-    public function addusermenu(Request $menudatas)
-    {
+    public function addusermenu(Request $menudatas) {
         // for ($i=0; $i<count($menudatas->menus); $i++)
         // {
         //     for($j=0; $j<count($menudatas->menus); $j++)
@@ -93,12 +85,9 @@ class IndexController extends Controller
         //     }
         // }
             // dd($menudatas->userlevel);
-        for ($i=0; $i<count($menudatas->menus); $i++)
-        {
-            for($j=0; $j<count($menudatas->menus); $j++)
-            {
-                if(isset($menudatas->menu[$j]) && $ok=($menudatas->menus[$i] === $menudatas->menu[$j]))
-                {
+        for ($i=0; $i<count($menudatas->menus); $i++) {
+            for($j=0; $j<count($menudatas->menus); $j++) {
+                if(isset($menudatas->menu[$j]) && $ok=($menudatas->menus[$i] === $menudatas->menu[$j])) {
                     $check = DB::table('menu')
                             ->where([
                                 ['list_menu_id', '=', $menudatas->menus[$i]],
@@ -106,22 +95,19 @@ class IndexController extends Controller
                                 ])
                             ->get();
                                 // dd($check);
-                    if($check = '0')
-                    {
+                    if($check = '0') {
                         // DB::table('menu')->insert([
                         //     ['id_list_menu' => $menudatas->menus[$i], 'id_user_level' => $menudatas->userlevel[0]]
                         // ]);
                         echo 'add'.$menudatas->menus[$i].'|'.$menudatas->menu[$j].'<br>';
                         break;
                     }
-                    else
-                    {
+                    else {
                         echo 'stop<br>';
                         break;
                     }
                 }
-                else
-                {
+                else {
                     // DB::table('menu')->where([
                     //     ['id_list_menu', '=', $menudatas->menus[$i]],
                     //     ['id_user_level', '=', $menudatas->userlevel[0]]]

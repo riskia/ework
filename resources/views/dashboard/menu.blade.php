@@ -14,8 +14,6 @@
 
 @section('content')
 <input type="checkbox" checked id="test" value="halo" v-model="message" >
-<label for="test">hallo</label>
-<span>Message is: @{{ message }}</span>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -104,24 +102,16 @@
                         <div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <form action="addusermenu" method="POST">
-                                        <input type="hidden" name="userlevel" value="2">
-                                        @foreach ($data as $item)
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="menu" id="{{ $item->nama_menu }}" v-model="cek" value="{{ $item->list_menu_id }}"
-                                                @if ($item->user_level_id == '2' &&  $item->list_menu_id = true)
-                                                    checked
-                                                @endif>
-                                                <label for="{{ $item->nama_menu }}">{{ $item->nama_menu }}</label>
-                                            </label>
-                                            {{-- <input type="hidden" name="menus[]" value="{{ $item->id_list_menu }}"> --}}
-                                        </div>
-                                        @endforeach
-                                        <span>Checked names: @{{ cek }}</span><br>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                        {{ csrf_field() }}
-                                    </form>
+                                    @foreach ($data as $item)
+                                        <button type="button"
+                                        @if ($item->user_level_id == '2' &&  $item->list_menu_id = true)
+                                            class="btn btn-info btn-circle"><i class="fa fa-check"></i>
+                                        @else
+                                            class="btn btn-danger btn-circle"><i class="fa fa-times"></i>
+                                        @endif
+                                        </button>
+                                        <label for="{{ $item->nama_menu }}">{{ $item->nama_menu }}</label><br>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

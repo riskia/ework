@@ -9,16 +9,14 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    public function loginpost(Request $login)
-    {
+    public function loginpost(Request $login) {
         $user = $login->username;
         $pass = $login->password; 
 
         $data = \App\Users::with('userlevel')->where('username','=', $user)->get();
         
-        if(count($data) > 0){ //ada atau tidak
-            if(Hash::check($pass,$data[0]->password))
-            {
+        if(count($data) > 0) { //ada atau tidak
+            if(Hash::check($pass,$data[0]->password)) {
                 Session::put('username',$user);
                 Session::put('user_level',$data[0]->user_level_id);
                 Session::put('iduser',$data[0]->user_id);
@@ -29,19 +27,17 @@ class LoginController extends Controller
                 return redirect('/')->with('alert','Wrong Username or Password');
             }
         }
-        else{
+        else {
             return redirect('/')->with('alert','Wrong Username or Password');
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         Session::flush();
         return redirect('/')->with('alert','Logout Success');
     }
 
-    public function changepass(Request $pass)
-    {
+    public function changepass(Request $pass) {
         $iduser    = session('iduser');
         $newpass   = bcrypt($pass->newpassword1);
         

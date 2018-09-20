@@ -10,12 +10,10 @@ class Menu extends Model
 
     public $timestamps = false;
 
-    public function listmenu()
-    {
+    public function listmenu() {
         return $this->belongsToMany('App\ListMenu', 'list_menu_id', 'list_menu_id');
     }
-    public function userlevel()
-    {
+    public function userlevel() {
         return $this->belongsToMany('App\UserLevel', 'user_level_id', 'user_level_id');
     }
 }

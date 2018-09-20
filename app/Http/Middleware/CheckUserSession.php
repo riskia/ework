@@ -13,13 +13,11 @@ class CheckUserSession
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         if (!$request->session()->exists('username')) {
             // user value cannot be found in session
             return redirect('/')->with('alert','Please Login');
         }
-
         return $next($request);
     }
 }
