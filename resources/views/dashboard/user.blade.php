@@ -23,7 +23,7 @@
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
-                            <th>id_user</th>
+                            <th>i_user</th>
                             <th>User Level</th>
                             <th>Username</th>
                             <th>Nama</th>
@@ -32,7 +32,7 @@
                     <tbody>
                         @foreach ($data as $users)
                         <tr>
-                          <td>{{ $users->id_user }}</td>
+                          <td>{{ $users->user_id }}</td>
                           <td>{{ $users->nama_user_level }}</td>
                           <td>{{ $users->username }}</td>
                           <td>{{ $users->nama_user }}</td>

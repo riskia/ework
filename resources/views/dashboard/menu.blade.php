@@ -68,7 +68,7 @@
                     <tbody>
                         @foreach ($allmenu as $menus)
                         <tr>
-                          <td>{{ $menus->id_list_menu }}</td>
+                          <td>{{ $menus->list_menu_id }}</td>
                           <td>{{ $menus->nama_menu }}</td>
                           <td>{{ $menus->link_menu }}</td>
                           <td><div class="{{ $menus->icon_menu }}"></div></td>
@@ -109,8 +109,8 @@
                                         @foreach ($data as $item)
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="menu" id="{{ $item->nama_menu }}" v-model="cek" value="{{ $item->id_list_menu }}"
-                                                @if ($item->id_user_level == '2' &&  $item->id_list_menu = true)
+                                                <input type="checkbox" name="menu" id="{{ $item->nama_menu }}" v-model="cek" value="{{ $item->list_menu_id }}"
+                                                @if ($item->user_level_id == '2' &&  $item->list_menu_id = true)
                                                     checked
                                                 @endif>
                                                 <label for="{{ $item->nama_menu }}">{{ $item->nama_menu }}</label>
@@ -140,11 +140,11 @@
                                         @foreach ($data as $item)
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="menu[]" value="{{ $item->id_list_menu }}" @if ($item->id_user_level == '3' &&  $item->id_list_menu = true)
+                                                <input type="checkbox" name="menu[]" value="{{ $item->list_menu_id }}" @if ($item->user_level_id == '3' &&  $item->list_menu_id = true)
                                                     checked
                                                 @endif>{{ $item->nama_menu }}
                                             </label>
-                                            <input type="hidden" name="menus[]" value="{{ $item->id_list_menu }}">
+                                            <input type="hidden" name="menus[]" value="{{ $item->list_menu_id }}">
                                         </div>
                                         @endforeach
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -168,11 +168,11 @@
                                         @foreach ($data as $item)
                                         <div class="checkbox">
                                             <label>
-                                                {{-- <input type="checkbox" name="menu[]" value="{{ $item->id_list_menu }}" @if ($item->SPV == 1)
+                                                {{-- <input type="checkbox" name="menu[]" value="{{ $item->list_menu_id }}" @if ($item->SPV == 1)
                                                     checked
                                                 @endif>{{ $item->nama_menu }} --}}
                                             </label>
-                                            <input type="hidden" name="menus[]" value="{{ $item->id_list_menu }}">
+                                            <input type="hidden" name="menus[]" value="{{ $item->list_menu_id }}">
                                         </div>
                                         @endforeach
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -196,11 +196,11 @@
                                         @foreach ($data as $item)
                                         <div class="checkbox">
                                             <label>
-                                                {{-- <input type="checkbox" name="menu[]" value="{{ $item->id_list_menu }}" @if ($item->Operator == 1)
+                                                {{-- <input type="checkbox" name="menu[]" value="{{ $item->list_menu_id }}" @if ($item->Operator == 1)
                                                     checked
                                                 @endif>{{ $item->nama_menu }} --}}
                                             </label>
-                                            <input type="hidden" name="menus[]" value="{{ $item->id_list_menu }}">
+                                            <input type="hidden" name="menus[]" value="{{ $item->list_menu_id }}">
                                         </div>
                                         @endforeach
                                         <button type="submit" class="btn btn-primary">Save changes</button>

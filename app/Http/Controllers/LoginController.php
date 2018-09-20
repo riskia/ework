@@ -20,8 +20,8 @@ class LoginController extends Controller
             if(Hash::check($pass,$data[0]->password))
             {
                 Session::put('username',$user);
-                Session::put('user_level',$data[0]->id_user_level);
-                Session::put('iduser',$data[0]->id_user);
+                Session::put('user_level',$data[0]->user_level_id);
+                Session::put('iduser',$data[0]->user_id);
                 Session::put('login',TRUE);
                 return redirect('dashboard');
             }
@@ -45,7 +45,7 @@ class LoginController extends Controller
         $iduser    = session('iduser');
         $newpass   = bcrypt($pass->newpassword1);
         
-        \App\Users::where('id_user', $iduser)->update(['password' => $newpass]);
+        \App\Users::where('user_id', $iduser)->update(['password' => $newpass]);
 
         return redirect('/profile')->with('alert','Change Password Success');
     }

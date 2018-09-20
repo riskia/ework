@@ -12,10 +12,10 @@ class Menu extends Model
 
     public function listmenu()
     {
-        return $this->belongsToMany('App\ListMenu', 'id_list_menu', 'id_list_menu');
+        return $this->belongsToMany('App\ListMenu', 'list_menu_id', 'list_menu_id');
     }
     public function userlevel()
     {
-        return $this->belongsTo('App\UserLevel', 'id_user_level', 'id_user_level');
+        return $this->belongsToMany('App\UserLevel', 'user_level_id', 'user_level_id');
     }
 }

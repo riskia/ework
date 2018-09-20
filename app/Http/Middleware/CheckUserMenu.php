@@ -21,9 +21,9 @@ class CheckUserMenu
         if($userlevel != '1')
         {
             $menu = DB::table('menu')
-                    ->join('list_menu', 'list_menu.id_list_menu', '=', 'menu.id_list_menu')
+                    ->join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                     ->where([['link_menu', \Request::path()]
-                            ,['id_user_level', $userlevel]
+                            ,['user_level_id', $userlevel]
                     ])
                     ->get();
             

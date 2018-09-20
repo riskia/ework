@@ -16,13 +16,12 @@ class IndexController extends Controller
         $userlevel = session('user_level');
         if($userlevel == '1')
         {
-            $menu = DB::table('list_menu')->get();
+            $menu = \App\ListMenu::all();
         }
         else
         {
-            $menu = DB::table('menu')
-                        ->join('list_menu', 'list_menu.id_list_menu', '=', 'menu.id_list_menu')
-                        ->where('id_user_level', $userlevel)
+            $menu = \App\Menu::join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
+                        ->where('user_level_id', $userlevel)
                         ->get();
         }
         $menutest = Session::put('menunya',$menu); //session save menu     
@@ -41,9 +40,6 @@ class IndexController extends Controller
     {
         $menu = session('menunya');
         
-        // $data = DB::table('user')
-        //             ->join('user_level', 'user.id_user_level', '=', 'user_level.id_user_level')
-        //             ->get();
         $data = \App\Users::with('userlevel')->get();
         return view('dashboard/profile', ['title' => 'Profile', 'menu' => $menu, 'data' => $data]);
     }
@@ -51,16 +47,15 @@ class IndexController extends Controller
     public function menu()
     {
         $menu = session('menunya');
-        $allmenu = DB::table('list_menu')->get();
-        $data = DB::table('list_menu')
-                    ->orderBy('list_menu.id_list_menu', 'asc')
-                    ->leftjoin('menu', 'list_menu.id_list_menu', '=', 'menu.id_list_menu')
+        $allmenu = \App\ListMenu::all();
+        $data = \App\ListMenu::orderBy('list_menu.list_menu_id', 'asc')
+                    ->leftjoin('menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                     ->get([
-                        'list_menu.id_list_menu',
+                        'list_menu.list_menu_id',
                         'list_menu.nama_menu',
                         'list_menu.link_menu',
                         'list_menu.icon_menu',
-                        'menu.id_user_level'
+                        'menu.user_level_id'
                     ]);
         return view('dashboard/menu', ['title' => 'Menu', 'menu' => $menu, 'data' => $data, 'allmenu' => $allmenu]);
     }
@@ -106,8 +101,8 @@ class IndexController extends Controller
                 {
                     $check = DB::table('menu')
                             ->where([
-                                ['id_list_menu', '=', $menudatas->menus[$i]],
-                                ['id_user_level', '=', $menudatas->userlevel]
+                                ['list_menu_id', '=', $menudatas->menus[$i]],
+                                ['user_level_id', '=', $menudatas->userlevel]
                                 ])
                             ->get();
                                 // dd($check);
