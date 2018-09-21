@@ -18,11 +18,13 @@ Route::get('/', function () {
 
 Route::get('/logout', 'LoginController@logout');
 Route::get('/dashboard', 'IndexController@dashboard')->middleware('usersession');
-Route::get('/user', 'IndexController@user')->middleware('usersession','usermenu');
-Route::get('/profile', 'IndexController@profile')->middleware('usersession','usermenu');
-Route::get('/menu', 'IndexController@menu')->middleware('usersession','usermenu');
+Route::middleware(['usersession','usermenu'])->group(function() {
+    Route::get('/user', 'IndexController@user');
+    Route::get('/profile', 'IndexController@profile');
+    Route::get('/menu', 'IndexController@menu');
+    Route::get('/zona', 'ZonaController@index');
+});
 
-Route::get('/zona', 'ZonaController@index')->middleware('usersession','usermenu');
 Route::post('/addwilayah', 'ZonaController@addwilayah');
 
 Route::get('/test', 'TestController@menu')->middleware('usersession');
