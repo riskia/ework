@@ -21,6 +21,10 @@ Route::get('/dashboard', 'IndexController@dashboard')->middleware('usersession')
 Route::get('/user', 'IndexController@user')->middleware('usersession','usermenu');
 Route::get('/profile', 'IndexController@profile')->middleware('usersession','usermenu');
 Route::get('/menu', 'IndexController@menu')->middleware('usersession','usermenu');
+
+Route::get('/zona', 'ZonaController@index')->middleware('usersession','usermenu');
+Route::post('/addwilayah', 'ZonaController@addwilayah');
+
 Route::get('/test', 'TestController@menu')->middleware('usersession');
 Route::get('/getuser', 'TestController@getuser');
 
