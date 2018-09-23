@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
+use App\Users;
+use App\Rayon;
+
 class LoginController extends Controller
 {
     public function loginpost(Request $login) {
         $user = $login->username;
         $pass = $login->password; 
 
-        $data = \App\Users::with('userlevel')->where('username','=', $user)->get();
+        $data = Users::with('userlevel')->where('username','=', $user)->get();
         
         if(count($data) > 0) { //ada atau tidak
             if(Hash::check($pass,$data[0]->password)) {
@@ -41,8 +44,20 @@ class LoginController extends Controller
         $iduser    = session('iduser');
         $newpass   = bcrypt($pass->newpassword1);
         
-        \App\Users::where('user_id', $iduser)->update(['password' => $newpass]);
+        Users::where('user_id', $iduser)->update(['password' => $newpass]);
 
         return redirect('/profile')->with('alert','Change Password Success');
     }
+
+    public function adduser(Request $datauser) {
+        $users = new users;
+        $users->user_level_id = $datauser->userlevelid;
+        $users->rayon_id = $datauser->rayonid;
+        $users->username = $datauser->username;
+        $users->nama_user = $datauser->namauser;
+        $users->password = bcrypt($datauser->password);
+        $users->save();
+        return redirect('/user');
+    }
+
 }

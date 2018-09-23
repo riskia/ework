@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 
 use App\Menu;
+use App\Users;
+use App\UserLevel;
+use App\Rayon;
 
 class IndexController extends Controller
 {
@@ -27,9 +30,24 @@ class IndexController extends Controller
 
     public function user() {
         $menu = session('menunya');
-        $data = \App\Users::with('userlevel')->get();
+        $users = Users::with(['userlevel',
+            'rayon' => function($query){
+            return $query->with(['area' => function($query){
+                return $query->with('wilayah');
+            }]);
+        }])->get();
+        // dd($users[1]->rayon->area->wilayah->nama_wilayah);
+        $userlevel = UserLevel::all();
+        $rayon = rayon::with(['area' => function($query){
+            return $query->with('wilayah');
+        }])->get();
 
-        return view('dashboard/user', ['title' => 'User board', 'menu' => $menu, 'data' => $data]);
+        return view('dashboard/user', ['title' => 'User board',
+                                        'menu' => $menu,
+                                        'users' => $users,
+                                        'userlevel' => $userlevel,
+                                        'rayon' => $rayon
+                                        ]);
     }
 
     public function profile() {

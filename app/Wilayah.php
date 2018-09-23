@@ -11,4 +11,7 @@ class Wilayah extends Model
 
     public $timestamps = false;
 
+    public function area() {
+        return $this->hasMany('App\Area', 'wilayah_id', 'wilayah_id');
+    }
 }

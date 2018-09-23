@@ -96,30 +96,16 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Nama Wilayah</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @foreach ($wilayah as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama_wilayah }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -136,6 +122,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             Area
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalarea">add</button>
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -144,30 +131,16 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Nama Area</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @foreach ($area as $item1)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item1->wilayah->nama_wilayah }},<b>{{ $item1->nama_area }}</b></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -184,38 +157,19 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             Rayon
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalrayon">add</button>
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @foreach ($rayon as $item2)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item2->area->wilayah->nama_wilayah }},{{ $item2->area->nama_area }},<b>{{ $item2->nama_rayon }}</b></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -233,19 +187,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Add Wilayah</h4>
             </div>
             <div class="modal-body">
-                <form method="POST">
+                <form method="POST" action="{{ url('/addwilayah') }}"">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nama wilayah</label>
-                            <input class="form-control" name="namawilayah" id="namawil">
+                            <label>Nama Wilayah</label>
+                            <input class="form-control" name="namawilayah">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="addwill">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                         {{ csrf_field() }}
                     </div>
                 </form>
@@ -256,6 +210,78 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal Wilayah-->
+
+<!-- Modal Area-->
+<div class="modal fade" id="modalarea" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Area</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url('/addarea') }}"">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nama Area</label>
+                            <input class="form-control" name="namaarea">
+                            <label>Pilih Wilayah</label>
+                            <select class="form-control" name="wilid">
+                                @foreach ($wilayah as $wilselect)
+                                <option value="{{ $wilselect->wilayah_id }}">{{ $wilselect->nama_wilayah }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        {{ csrf_field() }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal Area-->
+
+<!-- Modal Rayon-->
+<div class="modal fade" id="modalrayon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Area</h4>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url('/addrayon') }}"">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nama Rayon</label>
+                            <input class="form-control" name="namarayon">
+                            <label>Pilih Area</label>
+                            <select class="form-control" name="areaid">
+                                @foreach ($area as $arselect)
+                                <option value="{{ $arselect->area_id }}">{{ $arselect->wilayah->nama_wilayah }},{{ $arselect->nama_area }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        {{ csrf_field() }}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal Rayon-->
 
 @endsection
 
@@ -274,28 +300,5 @@
                 responsive: true
             });
         });
-
-        $("#addwil").click(function( {
-            $.ajax({
-                type:post,
-                url:'/addwilayahh',
-                // data: {
-                //     '_token': $('input[name=_token]').val(),
-                //     'namawil': $('input[name=namawilayah').val()
-                // },
-                data    : form.serialize(),
-                success: function(data) {
-                    if ((data.errors)) {
-                        $('.error').removeClass('hidden');
-                        $('.error').text(data.error.namawil);
-                    }
-                    else {
-                        $('.error').remove();
-                        $('#table').append("eee")
-                    }
-                },
-            });
-            $('#namawil').val('';)
-        }));
     </script>
 @endsection

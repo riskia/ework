@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 
 Route::get('/logout', 'LoginController@logout');
-Route::get('/dashboard', 'IndexController@dashboard')->middleware('usersession');
+
 Route::middleware(['usersession','usermenu'])->group(function() {
     Route::get('/user', 'IndexController@user');
     Route::get('/profile', 'IndexController@profile');
@@ -25,12 +25,21 @@ Route::middleware(['usersession','usermenu'])->group(function() {
     Route::get('/zona', 'ZonaController@index');
 });
 
+Route::middleware(['usersession'])->group(function() {
+    Route::get('/profile', 'IndexController@profile');
+    Route::get('/dashboard', 'IndexController@dashboard');
+});
+
 Route::post('/addwilayah', 'ZonaController@addwilayah');
+Route::post('/addarea', 'ZonaController@addarea');
+Route::post('/addrayon', 'ZonaController@addrayon');
 
 Route::get('/test', 'TestController@menu')->middleware('usersession');
 Route::get('/getuser', 'TestController@getuser');
 
 Route::post('/loginpost', 'LoginController@loginpost');
 Route::post('/changepassword', 'LoginController@changepass');
+Route::post('/adduser', 'LoginController@adduser');
+
 Route::post('/addmenu', 'IndexController@addmenu');
 Route::post('/addusermenu', 'IndexController@addusermenu');

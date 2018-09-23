@@ -14,4 +14,8 @@ class Users extends Model
     {
         return $this->BelongsTo('App\UserLevel', 'user_level_id', 'user_level_id');
     }
+
+    public function rayon() {
+        return $this->BelongsTo('App\Rayon', 'rayon_id', 'rayon_id');
+    }
 }
