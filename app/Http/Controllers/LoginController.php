@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
-use App\Model\Users;
-use App\Model\Rayon;
+use App\Models\Users;
+use App\Models\Rayon;
 
 class LoginController extends Controller
 {

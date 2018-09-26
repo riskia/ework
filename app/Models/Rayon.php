@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,10 +12,10 @@ class Rayon extends Model
     public $timestamps = false;
 
     public function area() {
-        return $this->BelongsTo('App\Area', 'area_id', 'area_id');
+        return $this->BelongsTo('App\Models\Area', 'area_id', 'area_id');
     }
 
     public function user() {
-        return $this->hasMany('App\Users', 'rayon_id', 'rayon_id');
+        return $this->hasMany('App\Models\Users', 'rayon_id', 'rayon_id');
     }
 }

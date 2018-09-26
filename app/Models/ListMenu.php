@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class ListMenu extends Model
     public $timestamps = false;
 
     public function menu() {
-        return $this->hasMany('App\Menu', 'list_menu_id', 'list_menu_id');
+        return $this->hasMany('App\Models\Menu', 'list_menu_id', 'list_menu_id');
     }
 
 }

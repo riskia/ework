@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 
-use App\Menu;
+use App\Models\Menu;
 
 class TestController extends Controller
 {
@@ -59,7 +59,7 @@ class TestController extends Controller
 
         $cek = \App\ListMenu::where('link_menu', 'user')->first();
         // dd($cek->nama_menu);
-        $data = \App\Menu::where([
+        $data = Menu::where([
             ['id_list_menu', $cek->nama_menu],
             ['id_user_level', $userlevel],
           ])->get();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Wilayah extends Model
     public $timestamps = false;
 
     public function area() {
-        return $this->hasMany('App\Area', 'wilayah_id', 'wilayah_id');
+        return $this->hasMany('App\Models\Area', 'wilayah_id', 'wilayah_id');
     }
 }

@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 
-use App\Model\Menu;
-use App\Model\ListMenu;
-use App\Model\Users;
-use App\Model\UserLevel;
-use App\Model\Rayon;
+use App\Models\Menu;
+use App\Models\ListMenu;
+use App\Models\Users;
+use App\Models\UserLevel;
+use App\Models\Rayon;
 
 class IndexController extends Controller
 {

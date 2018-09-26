@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
 
-use App\Model\Wilayah;
-use App\Model\Area;
-use App\Model\Rayon;
+use App\Models\Wilayah;
+use App\Models\Area;
+use App\Models\Rayon;
 
 class WorkController extends Controller
 {
