@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Response;
 
-use App\Models\Wilayah;
-use App\Models\Area;
-use App\Models\Rayon;
+use App\Models\Pembangkit;
+use App\Models\Jaringan;
+use App\Models\DaftarADP;
+use App\Models\Pekerjaan;
+use App\Models\Perencanaan;
+use App\Models\TEL;
 
 class WorkController extends Controller
 {
