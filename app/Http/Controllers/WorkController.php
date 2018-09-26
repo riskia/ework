@@ -12,7 +12,7 @@ use App\Model\Wilayah;
 use App\Model\Area;
 use App\Model\Rayon;
 
-class ZonaController extends Controller
+class WorkController extends Controller
 {
     public function index() {   
         $menu = session('menunya');

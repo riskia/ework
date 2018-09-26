@@ -7,20 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 
-use App\Menu;
-use App\Users;
-use App\UserLevel;
-use App\Rayon;
+use App\Model\Menu;
+use App\Model\ListMenu;
+use App\Model\Users;
+use App\Model\UserLevel;
+use App\Model\Rayon;
 
 class IndexController extends Controller
 {
     public function dashboard() {   
         $userlevel = session('user_level');
         if($userlevel == '1') {
-            $menu = \App\ListMenu::all();
+            $menu = ListMenu::all();
         }
         else {
-            $menu = \App\Menu::join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
+            $menu = Menu::join('list_menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                         ->where('user_level_id', $userlevel)
                         ->get();
         }
@@ -53,14 +54,14 @@ class IndexController extends Controller
     public function profile() {
         $menu = session('menunya');
         
-        $data = \App\Users::with('userlevel')->get();
+        $data = Users::with('userlevel')->get();
         return view('dashboard/profile', ['title' => 'Profile', 'menu' => $menu, 'data' => $data]);
     }
 
     public function menu() {
         $menu = session('menunya');
-        $allmenu = \App\ListMenu::all();
-        $data = \App\ListMenu::orderBy('list_menu.list_menu_id', 'asc')
+        $allmenu = ListMenu::all();
+        $data = ListMenu::orderBy('list_menu.list_menu_id', 'asc')
                     ->leftjoin('menu', 'list_menu.list_menu_id', '=', 'menu.list_menu_id')
                     ->get([
                         'list_menu.list_menu_id',

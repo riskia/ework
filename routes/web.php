@@ -23,6 +23,7 @@ Route::middleware(['usersession','usermenu'])->group(function() {
     Route::get('/profile', 'IndexController@profile');
     Route::get('/menu', 'IndexController@menu');
     Route::get('/zona', 'ZonaController@index');
+    Route::get('/work', 'WorkController@index');
 });
 
 Route::middleware(['usersession'])->group(function() {
